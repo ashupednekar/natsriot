@@ -167,6 +167,6 @@ Output:
 ╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
 ```
 
-As you can see, messages published to `eg.```` on server one are now visible on server two as well, thanks to stream replication! 🔄 Works both ways 😄
+As you can see, messages published to `eg.aaa` server one are now visible on server two as well, thanks to stream replication! 🔄 Works both ways 😄
 
 > Ignore the count for now, that's a known flaw, will be fixed soon 🤞 
