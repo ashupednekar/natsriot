@@ -1,6 +1,6 @@
 # natsriot ⚡
 
-A simple NATS stream setup and test script. Quickly create streams, publish messages, and see how they replicate across NATS servers.
+A simple NATS replication setup and test script. Quickly create streams, publish messages, and see how they replicate across NATS servers.
 
 
 > ### ⚠️ Known Issue: Exponential Message Growth
