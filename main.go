@@ -3,22 +3,24 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/nats-io/nats.go"
 )
 
 func main() {
-	// Connect to the first NATS server (30041)
-	nc1, err := nats.Connect("nats://localhost:30041")
+
+  sourceAddr := os.Getenv("SOURCE_SERVER_ADDR")
+	nc1, err := nats.Connect(sourceAddr)
 	if err != nil {
-		log.Fatalf("Error connecting to NATS server on port 30041: %v", err)
+    log.Fatalf("Error connecting to source NATS server at %s:  %v", sourceAddr, err)
 	}
 	defer nc1.Close()
 
-	// Connect to the second NATS server (30042)
-	nc2, err := nats.Connect("nats://localhost:30042")
+  destAddr := os.Getenv("DESTINATION_SERVER_ADDR")
+	nc2, err := nats.Connect(destAddr)
 	if err != nil {
-		log.Fatalf("Error connecting to NATS server on port 30042: %v", err)
+    log.Fatalf("Error connecting to destination NATS server at %s:  %v", destAddr, err)
 	}
 	defer nc2.Close()
 
@@ -30,7 +32,7 @@ func main() {
 		// Publish the received message to the second NATS server
 		err := nc2.Publish(msg.Subject, msg.Data)
 		if err != nil {
-			log.Printf("Error publishing message to second server: %v", err)
+			log.Printf("Error publishing message to destination server: %v", err)
 		} else {
 			fmt.Printf("Message replicated to %s on second NATS server\n", msg.Subject)
 		}

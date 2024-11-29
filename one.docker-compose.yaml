@@ -1,0 +1,22 @@
+services:
+
+  nats1:
+    image: docker.io/nats:2.9.20
+    container_name : "nats1"
+    ports:
+      - "30041:4222"
+    volumes:
+      - ./data1:/data
+    command:
+      - "--name=nats1"
+      - "--js"
+      - "--sd=/data"
+    restart: always
+  
+  natsriot1:
+    image: ashupednekar535/tools:natsriot1
+    environment:
+      - SOURCE_SERVER_ADDR=localhost=nats://localhost:30041
+      - DESTINATION_SERVER_ADDR=localhost=nats://localhost:30042
+    network_mode: host
+    restart: always
