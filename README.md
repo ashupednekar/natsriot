@@ -6,17 +6,17 @@ A simple NATS stream setup and test script. Quickly create streams, publish mess
 
 1. Clone this repo:
 
-   aaa
+   ```
    git clone https://github.com/yourusername/natsriot.git
    cd natsriot
-   aaa
+   ```
 
 2. Configure your NATS contexts:
 
-   aaa
+   ```
    nats context add one -s localhost:30041
    nats context add two -s localhost:30042
-   aaa
+   ```
 
 Now you're ready to create streams and publish messages!
 
@@ -26,12 +26,12 @@ Now you're ready to create streams and publish messages!
 
 Run the following to create a stream:
 
-aaa
+```
 nats --context one s create
-aaa
+```
 
 Output:
-aaa
+```
 [one] ? Stream Name example
 [one] ? Subjects eg.>
 [one] ? Storage file
@@ -39,70 +39,70 @@ aaa
 [one] ? Retention Policy Work Queue
 ...
 Stream example was created
-aaa
+```
 
 ### Publish Messages
 
 Publish messages to a subject on the first NATS server:
 
-aaa
-nats --context one pub eg.aaa "Hello from natsriot!"
-aaa
+```
+nats --context one pub eg.``` "Hello from natsriot!"
+```
 
 Output:
-aaa
-Published 3 bytes to "eg.aaa"
-aaa
+```
+Published 3 bytes to "eg.```"
+```
 
 Publish a few more messages:
 
-aaa
-nats --context one pub eg.aaa "Another message"
-nats --context one pub eg.aaa "And another!"
-aaa
+```
+nats --context one pub eg.``` "Another message"
+nats --context one pub eg.``` "And another!"
+```
 
 Output:
-aaa
-Published 3 bytes to "eg.aaa"
-Published 3 bytes to "eg.aaa"
-aaa
+```
+Published 3 bytes to "eg.```"
+Published 3 bytes to "eg.```"
+```
 
 ### View Stream Subjects on Server One
 
 Check out the subjects on server one:
 
-aaa
+```
 nats --context one s subjects example
-aaa
+```
 
 Output:
-aaa
+```
 ╭─────────────────────────────────────────────────────╮
 │             1 Subjects in stream example            │
 ├─────────┬───────┬─────────┬───────┬─────────┬───────┤
 │ Subject │ Count │ Subject │ Count │ Subject │ Count │
 ├─────────┼───────┼─────────┼───────┼─────────┼───────┤
-│ eg.aaa  │ 251   │         │       │         │       │
+│ eg.```  │ 251   │         │       │         │       │
 ╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
-aaa
+```
 
 ### View Stream Subjects on Server Two
 
 Check out the subjects on server two, where the messages are replicated:
 
-aaa
+```
 nats --context two s subjects example
-aaa
+```
 
 Output:
-aaa
+```
 ╭─────────────────────────────────────────────────────╮
 │             1 Subjects in stream example            │
 ├─────────┬───────┬─────────┬───────┬─────────┬───────┤
 │ Subject │ Count │ Subject │ Count │ Subject │ Count │
 ├─────────┼───────┼─────────┼───────┼─────────┼───────┤
-│ eg.aaa  │ 251   │         │       │         │       │
+│ eg.```  │ 251   │         │       │         │       │
 ╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
-aaa
+```
 
-As you can see, messages published to `eg.aaa` on server one are now visible on server two as well, thanks to stream replication! 🔄
+As you can see, messages published to `eg.```` on server one are now visible on server two as well, thanks to stream replication! 🔄
