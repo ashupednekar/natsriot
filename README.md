@@ -108,25 +108,25 @@ Stream example was created
 Publish messages to a subject on the first NATS server:
 
 ```
-nats --context one pub eg.``` "Hello from natsriot!"
+nats --context one pub eg.aaa "Hello from natsriot!"
 ```
 
 Output:
 ```
-Published 3 bytes to "eg.```"
+Published 3 bytes to "eg.aaa"
 ```
 
 Publish a few more messages:
 
 ```
-nats --context one pub eg.``` "Another message"
-nats --context one pub eg.``` "And another!"
+nats --context one pub eg.aaa "Another message"
+nats --context one pub eg.aaa "And another!"
 ```
 
 Output:
 ```
-Published 3 bytes to "eg.```"
-Published 3 bytes to "eg.```"
+Published 3 bytes to "eg.aaa"
+Published 3 bytes to "eg.aaa"
 ```
 
 ### View Stream Subjects on Server One
@@ -144,7 +144,7 @@ Output:
 ├─────────┬───────┬─────────┬───────┬─────────┬───────┤
 │ Subject │ Count │ Subject │ Count │ Subject │ Count │
 ├─────────┼───────┼─────────┼───────┼─────────┼───────┤
-│ eg.```  │ 251   │         │       │         │       │
+│ eg.aaa  │ 251   │         │       │         │       │
 ╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
 ```
 
@@ -163,8 +163,8 @@ Output:
 ├─────────┬───────┬─────────┬───────┬─────────┬───────┤
 │ Subject │ Count │ Subject │ Count │ Subject │ Count │
 ├─────────┼───────┼─────────┼───────┼─────────┼───────┤
-│ eg.```  │ 251   │         │       │         │       │
+│ eg.aaa  │ 251   │         │       │         │       │
 ╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
 ```
 
-As you can see, messages published to `eg.```` on server one are now visible on server two as well, thanks to stream replication! 🔄
+As you can see, messages published to `eg.```` on server one are now visible on server two as well, thanks to stream replication! 🔄 Works both ways 😄
