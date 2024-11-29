@@ -3,9 +3,8 @@
 A simple NATS stream setup and test script. Quickly create streams, publish messages, and see how they replicate across NATS servers.
 
 
-## ⚠️ Known Issue: Exponential Message Growth
-
-Currently, there's a flaw causing the number of messages to grow exponentially due to duplicate cyclic writes. This issue is known and will be fixed soon. Stay tuned! 🛠️
+> ### ⚠️ Known Issue: Exponential Message Growth
+> Currently, there's a flaw causing the number of messages to grow exponentially due to duplicate cyclic writes. This issue is known and will be fixed soon. Stay tuned! 🛠️
 
 ## Setup 🚀
 
