@@ -13,7 +13,7 @@ func main() {
   sourceAddr := os.Getenv("SOURCE_SERVER_ADDR")
 	nc1, err := nats.Connect(sourceAddr)
 	if err != nil {
-    log.Fatalf("Error connecting to source NATS server at %s:  %v", sourceAddr, err)
+    log.Fatalf("Error connecting to source NATS server at %s -> %v", sourceAddr, err)
 	}
 	defer nc1.Close()
 
