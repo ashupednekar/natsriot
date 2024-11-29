@@ -1,113 +1,108 @@
-# natsriot 🚀🌪️
+# natsriot ⚡
 
-Welcome to **natsriot**, the ultimate NATS-powered chaos! 🌀 This repo lets you easily set up and experiment with NATS Streams, publish and subscribe to subjects across multiple contexts, and see how messages ripple through your NATS cluster. It's time to take your messaging game to the next level with **speed, simplicity, and a bit of fun!**
+A simple NATS stream setup and test script. Quickly create streams, publish messages, and see how they replicate across NATS servers.
 
-## Features ✨
+## Setup 🚀
 
-- **Stream Management** 📈: Create and manage streams with ease.
-- **Cross-Context Replication** 🔄: Publish a message to one context, and watch it replicate across other servers automatically.
-- **Flexible Stream Configuration** ⚙️: Define subjects, retention policies, replication settings, and more with a single command.
-- **Real-time Messaging** 📨: Publish and subscribe to messages in real time, and watch the magic happen.
+1. Clone this repo:
 
-## Installation 🚀
+   aaa
+   git clone https://github.com/yourusername/natsriot.git
+   cd natsriot
+   aaa
 
-### Prerequisites
+2. Configure your NATS contexts:
 
-Make sure you have [NATS CLI](https://docs.nats.io/nats-tools/nats/) installed on your system. This project uses **NATS Streams** and assumes you have a NATS cluster up and running (or you can easily spin one up locally).
+   aaa
+   nats context add one -s localhost:30041
+   nats context add two -s localhost:30042
+   aaa
 
-### Install the NATS CLI
-1. **Homebrew (MacOS/Linux)**
-
-   ```
-   brew install nats-io/nats-tools/nats
-   ```
-
-2. **From Source** (for the adventurous)
-
-   ```
-   git clone https://github.com/nats-io/natscli.git
-   cd natscli
-   make install
-   ```
-
-### Clone the Repo 🛠️
-
-```
-git clone https://github.com/yourusername/natsriot.git
-cd natsriot
-```
+Now you're ready to create streams and publish messages!
 
 ## Usage 📡
 
-### 1. **Create a Stream** 💥
-Use the NATS CLI to create a stream on the server, like so:
+### Create a Stream
 
-```
+Run the following to create a stream:
+
+aaa
 nats --context one s create
-```
+aaa
 
-This will walk you through the interactive process of stream creation. Set up subjects, replication, and retention policies to your liking.
+Output:
+aaa
+[one] ? Stream Name example
+[one] ? Subjects eg.>
+[one] ? Storage file
+[one] ? Replication 1
+[one] ? Retention Policy Work Queue
+...
+Stream example was created
+aaa
 
-### 2. **Publish Messages** 📬
-Publish messages to a subject in your stream like so:
+### Publish Messages
 
-```
-nats --context one pub eg.``` "Hello, NATS!"
-```
+Publish messages to a subject on the first NATS server:
 
-This will publish a message to the `eg.```` subject. You can view the stream and messages on the other context servers.
+aaa
+nats --context one pub eg.aaa "Hello from natsriot!"
+aaa
 
-### 3. **Subscribe to Subjects** 🔔
-Listen to messages being published to a subject with the following command:
+Output:
+aaa
+Published 3 bytes to "eg.aaa"
+aaa
 
-```
-nats --context one sub eg.```
-```
+Publish a few more messages:
 
-As messages are published to `eg.````, they will appear in real-time!
+aaa
+nats --context one pub eg.aaa "Another message"
+nats --context one pub eg.aaa "And another!"
+aaa
 
-## Fun Commands 🎮
+Output:
+aaa
+Published 3 bytes to "eg.aaa"
+Published 3 bytes to "eg.aaa"
+aaa
 
-Here are some fun things you can do with `natsriot`:
+### View Stream Subjects on Server One
 
-- **Publish to multiple subjects** 📬
+Check out the subjects on server one:
 
-   ```
-   nats --context one pub eg.``` "Hello, World!" && nats --context one pub eg.bbb "NATS is awesome!"
-   ```
+aaa
+nats --context one s subjects example
+aaa
 
-- **View Stream Stats** 📊
+Output:
+aaa
+╭─────────────────────────────────────────────────────╮
+│             1 Subjects in stream example            │
+├─────────┬───────┬─────────┬───────┬─────────┬───────┤
+│ Subject │ Count │ Subject │ Count │ Subject │ Count │
+├─────────┼───────┼─────────┼───────┼─────────┼───────┤
+│ eg.aaa  │ 251   │         │       │         │       │
+╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
+aaa
 
-   ```
-   nats --context one s stats
-   ```
+### View Stream Subjects on Server Two
 
-- **Replicate Streams Across Servers** 🌍
-   Watch how messages get replicated between contexts and streams!
+Check out the subjects on server two, where the messages are replicated:
 
-## Troubleshooting ⚠️
+aaa
+nats --context two s subjects example
+aaa
 
-If you encounter issues, here are a few tips:
-- Make sure your NATS servers are running and accessible.
-- Check your network connectivity.
-- Use `nats --context <context-name> s subjects` to view the subjects in the stream.
+Output:
+aaa
+╭─────────────────────────────────────────────────────╮
+│             1 Subjects in stream example            │
+├─────────┬───────┬─────────┬───────┬─────────┬───────┤
+│ Subject │ Count │ Subject │ Count │ Subject │ Count │
+├─────────┼───────┼─────────┼───────┼─────────┼───────┤
+│ eg.aaa  │ 251   │         │       │         │       │
+╰─────────┴───────┴─────────┴───────┴─────────┴───────╯
+aaa
 
-## Contributing 🤝
-
-We'd love to see your contributions! Feel free to fork this repo, create a branch, and submit a PR. Whether it's fixing bugs, improving documentation, or adding cool new features — you're welcome here!
-
-### Steps to contribute:
-1. Fork this repo
-2. Create a new branch (`git checkout -b feature-name`)
-3. Make your changes
-4. Commit your changes (`git commit -am 'Add cool new feature'`)
-5. Push to your branch (`git push origin feature-name`)
-6. Create a pull request!
-
-## License 📜
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Happy NATS-ing! 🎉
+As you can see, messages published to `eg.aaa` on server one are now visible on server two as well, thanks to stream replication! 🔄
