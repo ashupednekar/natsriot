@@ -6,7 +6,7 @@ A simple NATS replication setup and test script. Quickly create streams, publish
 > ### ⚠️ Known Issue: Exponential Message Growth
 > Currently, there's a flaw causing the number of messages to grow exponentially due to duplicate cyclic writes. This issue is known and will be fixed soon. Stay tuned! 🛠️
 
-> In a hot-warm setup, you can always have riot only on server1, so that when lb routes requests to server 2, it'll have everything and when seever1 comes back up, it'll get the newer writes anyway on restart through rsynced volumes
+> ### 🌤️ In a hot-warm setup, you can always have riot only on server1, so that when lb routes requests to server 2, it'll have everything and when seever1 comes back up, it'll get the newer writes anyway on restart through rsynced volumes
 
 ## Setup 🚀
 
